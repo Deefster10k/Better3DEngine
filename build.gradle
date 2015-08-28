@@ -1,0 +1,32 @@
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+}
+
+apply plugin: 'application'
+apply plugin: 'eclipse'
+
+sourceCompatibility = 1.8
+
+mainClassName = 'termin8or.base.engine.Main'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+	compile 'com.google.guava:guava:13.0'
+	compile 'org.apache.logging.log4j:log4j-api:2.3'
+    compile 'org.apache.logging.log4j:log4j-core:2.3'
+	compile 'org.lwjgl.lwjgl:lwjgl:2.9.3'
+}
+
+jar {
+	from configurations.compile.collect { zipTree it }
+	manifest.attributes 'Main-Class': 'termin8or.base.engine.Main'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.4'
+}
