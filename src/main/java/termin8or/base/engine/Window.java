@@ -3,25 +3,20 @@ package termin8or.base.engine;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.ContextAttribs;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
-import org.lwjgl.opengl.PixelFormat;
 
 public class Window
 {
 	public static void createWindow(int width, int height, String title)
 	{
-		PixelFormat pixelFormat = new PixelFormat();
-        ContextAttribs contextAtrributes = new ContextAttribs(3, 1).withForwardCompatible(true);
-		
 		try
 		{
-			Display.setDisplayMode(new DisplayMode(800, 600));
-			Display.setTitle(title);
 			System.out.println("Pre: Display.create method call, crash happens at point of creation");
-			Display.create(pixelFormat, contextAtrributes); // pixel format error.
+			Display.create(); // pixel format error.
 			System.out.println("Post: Display.create method call, if this shows it's good!");
+			Display.setDisplayMode(new DisplayMode(width, height));
+			Display.setTitle(title);
 			Keyboard.create();
 			Mouse.create();
 		}

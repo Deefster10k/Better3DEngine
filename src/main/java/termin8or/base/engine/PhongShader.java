@@ -6,7 +6,7 @@ public class PhongShader extends Shader
 	
 	private static final PhongShader instance = new PhongShader();
 
-	public static PhongShader getInstance()
+	public PhongShader getInstance()
 	{
 		return instance;
 	}

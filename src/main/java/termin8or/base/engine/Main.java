@@ -12,7 +12,6 @@ public class Main
 
 	public Main()
 	{
-		
 		RenderUtil.initGraphics();
 		System.out.println(RenderUtil.getOpenGLVersion());
 		isRunning = false;

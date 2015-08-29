@@ -6,8 +6,6 @@ import java.io.FileInputStream;
 import java.io.FileReader;
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.newdawn.slick.opengl.TextureLoader;
 
 import com.google.common.collect.Lists;
