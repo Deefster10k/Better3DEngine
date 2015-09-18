@@ -34,11 +34,11 @@ natives {
         'lwjgl-platform-2.9.3-natives-osx', 
         'lwjgl-platform-2.9.3-natives-linux'
 	]
-    platforms = 'linux'
+    platforms = 'windows'
 }
 
 run {
-    systemProperty 'java.library.path', file( 'build/natives/linux' )
+    systemProperty 'java.library.path', file( 'build/natives/windows' )
 }
 
 jar {
@@ -47,5 +47,5 @@ jar {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.5'
+    gradleVersion = '2.4'
 }

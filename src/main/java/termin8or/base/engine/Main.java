@@ -5,7 +5,7 @@ public class Main
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 600;
 	public static final String TITLE = "Engine Test";
-	public static final double FRAME_CAP = 100.0;
+	public static final double FRAME_CAP = 500.0;
 
 	private boolean isRunning;
 	private Game game;
