@@ -1,4 +1,8 @@
-package termin8or.base.engine;
+package termin8or.base.engine.rendering;
+
+import termin8or.base.engine.core.Matrix4f;
+import termin8or.base.engine.core.Transform;
+import termin8or.base.engine.core.Vector3f;
 
 public class PhongShader extends Shader
 {
@@ -66,12 +70,11 @@ public class PhongShader extends Shader
 	}
 
 	@Override
-	public void updateUniforms(Matrix4f worldMatrix, Matrix4f projectedMatrix, Material material)
+	public void updateUniforms(Transform transform, Material material)
 	{
-		if (material.getTexture() != null) 
-			material.getTexture().bind();
-		else
-			RenderUtil.unbindTextures();
+		Matrix4f worldMatrix = transform.getTransformation();
+		Matrix4f projectedMatrix = getRenderingEngine().getMainCamera().getViewProjection().mul(worldMatrix);
+		material.getTexture().bind();
 
 		setUniform("transform", worldMatrix);
 		setUniform("transformProjected", projectedMatrix);
@@ -89,7 +92,7 @@ public class PhongShader extends Shader
 		setUniformf("specularIntensity", material.getSpecularIntensity());
 		setUniformf("specularExponent", material.getSpecularExponent());
 		
-		setUniform("eyePos", Transform.getCamera().getPos());
+		setUniform("eyePos", getRenderingEngine().getMainCamera().getPos());
 	}
 
 	public static Vector3f getAmbientLight()

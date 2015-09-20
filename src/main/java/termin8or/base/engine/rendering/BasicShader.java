@@ -1,4 +1,7 @@
-package termin8or.base.engine;
+package termin8or.base.engine.rendering;
+
+import termin8or.base.engine.core.Matrix4f;
+import termin8or.base.engine.core.Transform;
 
 public class BasicShader extends Shader
 {
@@ -22,12 +25,11 @@ public class BasicShader extends Shader
 	}
 
 	@Override
-	public void updateUniforms(Matrix4f worldMatrix, Matrix4f projectedMatrix, Material material)
+	public void updateUniforms(Transform transform, Material material)
 	{
-		if(material.getTexture() != null)
-			material.getTexture().bind();
-		else
-			RenderUtil.unbindTextures();
+		Matrix4f worldMatrix = transform.getTransformation();
+		Matrix4f projectedMatrix = getRenderingEngine().getMainCamera().getViewProjection().mul(worldMatrix);
+		material.getTexture().bind();
 		
 		setUniform("colour", material.getColour());
 		setUniform("transform", projectedMatrix);

@@ -1,26 +1,6 @@
-package termin8or.base.engine;
+package termin8or.base.engine.rendering;
 
-import static org.lwjgl.opengl.GL20.GL_COMPILE_STATUS;
-import static org.lwjgl.opengl.GL20.GL_FRAGMENT_SHADER;
-import static org.lwjgl.opengl.GL20.GL_LINK_STATUS;
-import static org.lwjgl.opengl.GL20.GL_VALIDATE_STATUS;
-import static org.lwjgl.opengl.GL20.GL_VERTEX_SHADER;
-import static org.lwjgl.opengl.GL20.glAttachShader;
-import static org.lwjgl.opengl.GL20.glCompileShader;
-import static org.lwjgl.opengl.GL20.glCreateProgram;
-import static org.lwjgl.opengl.GL20.glCreateShader;
-import static org.lwjgl.opengl.GL20.glGetProgrami;
-import static org.lwjgl.opengl.GL20.glGetShaderInfoLog;
-import static org.lwjgl.opengl.GL20.glGetShaderi;
-import static org.lwjgl.opengl.GL20.glGetUniformLocation;
-import static org.lwjgl.opengl.GL20.glLinkProgram;
-import static org.lwjgl.opengl.GL20.glShaderSource;
-import static org.lwjgl.opengl.GL20.glUniform1f;
-import static org.lwjgl.opengl.GL20.glUniform1i;
-import static org.lwjgl.opengl.GL20.glUniform3f;
-import static org.lwjgl.opengl.GL20.glUniformMatrix4;
-import static org.lwjgl.opengl.GL20.glUseProgram;
-import static org.lwjgl.opengl.GL20.glValidateProgram;
+import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL32.GL_GEOMETRY_SHADER;
 
 import java.io.BufferedReader;
@@ -29,8 +9,15 @@ import java.util.Map;
 
 import com.google.common.collect.Maps;
 
+import termin8or.base.engine.core.Matrix4f;
+import termin8or.base.engine.core.RenderingEngine;
+import termin8or.base.engine.core.Transform;
+import termin8or.base.engine.core.Util;
+import termin8or.base.engine.core.Vector3f;
+
 public class Shader
 {
+	private RenderingEngine renderingEngine;
 	private int program;
 	private Map<String, Integer> uniforms;
 
@@ -50,10 +37,20 @@ public class Shader
 	{
 		glUseProgram(program);
 	}
-
-	public void updateUniforms(Matrix4f worldMatrix, Matrix4f projectedMatrix, Material material)
+	
+	public void setRenderingEngine(RenderingEngine renderingEngine)
 	{
+		this.renderingEngine = renderingEngine;
+	}
+	
+	public RenderingEngine getRenderingEngine()
+	{
+		return renderingEngine;
+	}
 
+	public void updateUniforms(Transform transform, Material material)
+	{
+		
 	}
 
 	public void addUniform(String uniform)
@@ -104,6 +101,11 @@ public class Shader
 	public void addFragmentShader(String text)
 	{
 		addProgram(text, GL_FRAGMENT_SHADER);
+	}
+	
+	public void setAttribLocation(String attributeName, int location)
+	{
+		glBindAttribLocation(program, location, attributeName);
 	}
 
 	public void compileShader()

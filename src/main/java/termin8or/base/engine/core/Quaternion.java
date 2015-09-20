@@ -1,4 +1,4 @@
-package termin8or.base.engine;
+package termin8or.base.engine.core;
 
 public class Quaternion
 {

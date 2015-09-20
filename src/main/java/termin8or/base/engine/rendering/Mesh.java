@@ -1,4 +1,4 @@
-package termin8or.base.engine;
+package termin8or.base.engine.rendering;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL15.*;
@@ -9,6 +9,9 @@ import java.io.FileReader;
 import java.util.List;
 
 import com.google.common.collect.Lists;
+
+import termin8or.base.engine.core.Util;
+import termin8or.base.engine.core.Vector3f;
 
 public class Mesh
 {

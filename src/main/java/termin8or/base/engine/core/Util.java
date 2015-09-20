@@ -1,4 +1,4 @@
-package termin8or.base.engine;
+package termin8or.base.engine.core;
 
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
@@ -7,6 +7,8 @@ import java.util.List;
 import org.lwjgl.BufferUtils;
 
 import com.google.common.collect.Lists;
+
+import termin8or.base.engine.rendering.Vertex;
 
 public class Util
 {	

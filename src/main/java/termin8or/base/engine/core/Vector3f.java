@@ -1,4 +1,4 @@
-package termin8or.base.engine;
+package termin8or.base.engine.core;
 
 public class Vector3f
 {
@@ -57,6 +57,11 @@ public class Vector3f
 		return new Vector3f(w.getX(), w.getY(), w.getZ());
 	}
 	
+	public Vector3f lerp(Vector3f dest, float lerpFactor)
+	{
+		return dest.sub(this).mul(lerpFactor).add(this);
+	}
+	
 	public Vector3f add(Vector3f v)
 	{
 		return new Vector3f(x + v.getX(), y + v.getY(), z + v.getZ());
@@ -102,10 +107,19 @@ public class Vector3f
 		return new Vector3f(Math.abs(x), Math.abs(y), Math.abs(z));
 	}
 	
+	@Override
 	public String toString()
 	{
 		return "(" + x + " " + y + " " + z + ")";
 	}
+	
+	public Vector2f getXY() { return new Vector2f(x, y); }
+	public Vector2f getYZ() { return new Vector2f(y, z); }
+	public Vector2f getZX() { return new Vector2f(z, x); }
+	
+	public Vector2f getYX() { return new Vector2f(y, x); }
+	public Vector2f getZY() { return new Vector2f(z, y); }
+	public Vector2f getXZ() { return new Vector2f(x, z); }
 
 	public float getX()
 	{
@@ -135,5 +149,10 @@ public class Vector3f
 	public void setZ(float z)
 	{
 		this.z = z;
+	}
+	
+	public boolean equals(Vector3f v)
+	{
+		return x == v.getX() && y == v.getY() && z == v.getZ();
 	}
 }

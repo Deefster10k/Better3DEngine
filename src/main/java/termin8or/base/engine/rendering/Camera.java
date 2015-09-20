@@ -1,4 +1,9 @@
-package termin8or.base.engine;
+package termin8or.base.engine.rendering;
+
+import termin8or.base.engine.core.Input;
+import termin8or.base.engine.core.Matrix4f;
+import termin8or.base.engine.core.Vector2f;
+import termin8or.base.engine.core.Vector3f;
 
 public class Camera
 {
@@ -7,26 +12,31 @@ public class Camera
 	private Vector3f pos;
 	private Vector3f forward;
 	private Vector3f up;
+	private Matrix4f projection;
 	
-	public Camera()
+	public Camera(float fov, float aspectRatio, float zNear, float zFar)
 	{
-		this(new Vector3f(0,0,0), new Vector3f(0,0,1), new Vector3f(0,1,0));
+		this.pos = new Vector3f(0,0,0);
+		this.forward = new Vector3f(0,0,1).normalise();
+		this.up = new Vector3f(0,1,0).normalise();
+		this.projection = new Matrix4f().initPerspective(fov, aspectRatio, zNear, zFar);
 	}
 	
-	public Camera(Vector3f pos, Vector3f forward, Vector3f up)
+	public Matrix4f getViewProjection()
 	{
-		this.pos = pos;
-		this.forward = forward.normalise();
-		this.up = up.normalise();
+		Matrix4f cameraRotation = new Matrix4f().initRotation(getForward(), getUp());
+		Matrix4f cameraTranslation = new Matrix4f().initTranslation(-getPos().getX(), -getPos().getY(), -getPos().getZ());
+		
+		return projection.mul(cameraRotation.mul(cameraTranslation));
 	}
 	
 	boolean mouseLocked = false;
 	Vector2f centerPosition = new Vector2f(Window.getWidth()/2, Window.getHeight()/2);
 	
-	public void input()
+	public void input(float delta)
 	{
 		float sensitivity = 0.5f;
- 		float movAmt = (float)(10 * Time.getDelta());
+ 		float movAmt = (float)(10 * delta);
 		
 		if(Input.getKey(Input.KEY_ESCAPE))
 		{

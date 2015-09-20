@@ -1,4 +1,4 @@
-package termin8or.base.engine;
+package termin8or.base.engine.core;
 
 public class Matrix4f
 {
@@ -77,23 +77,38 @@ public class Matrix4f
 		return this;
 	}
 	
-	public Matrix4f initProjection(float fov, float width, float height, float zNear, float zFar)
+	public Matrix4f initPerspective(float fov, float aspectRatio, float zNear, float zFar)
 	{
-		float ar = width/height;
-		float tanHalfFOV = (float)Math.tan(Math.toRadians(fov / 2));
+		float tanHalfFOV = (float)Math.tan(fov / 2);
 		float zRange = zNear - zFar;
 		
 		// @formatter:off
-		m[0][0] = 1 / (tanHalfFOV * ar);m[0][1] = 0;					m[0][2] = 0;						m[0][3] = 0;
-		m[1][0] = 0;					m[1][1] = 1 / tanHalfFOV;		m[1][2] = 0;						m[1][3] = 0;
-		m[2][0] = 0;					m[2][1] = 0;					m[2][2] = (- zNear - zFar)/zRange;	m[2][3] = 2 * zFar * zNear / zRange;
-		m[3][0] = 0;					m[3][1] = 0;					m[3][2] = 1;						m[3][3] = 0;
+		m[0][0] = 1 / (tanHalfFOV * aspectRatio);	m[0][1] = 0;					m[0][2] = 0;						m[0][3] = 0;
+		m[1][0] = 0;								m[1][1] = 1 / tanHalfFOV;		m[1][2] = 0;						m[1][3] = 0;
+		m[2][0] = 0;								m[2][1] = 0;					m[2][2] = (- zNear - zFar)/zRange;	m[2][3] = 2 * zFar * zNear / zRange;
+		m[3][0] = 0;								m[3][1] = 0;					m[3][2] = 1;						m[3][3] = 0;
 		// @formatter:on
 		
 		return this;
 	}
 	
-	public Matrix4f initCamera(Vector3f forward, Vector3f up)
+	public Matrix4f initOrthographic(float left, float right, float bottom, float top, float near, float far)
+	{
+		float width = right - left;
+		float height = top - bottom;
+		float depth = far - near;
+		
+		// @formatter:off
+		m[0][0] = 2/width;	m[0][1] = 0;		m[0][2] = 0;		m[0][3] = -(right + left)/width;
+		m[1][0] = 0;		m[1][1] = 2/height;	m[1][2] = 0;		m[1][3] = -(top + bottom)/height;
+		m[2][0] = 0;		m[2][1] = 0;		m[2][2] = -2/depth;	m[2][3] = -(far + near)/depth;
+		m[3][0] = 0;		m[3][1] = 0;		m[3][2] = 0;		m[3][3] = 1;
+		// @formatter:on
+		
+		return this;
+	}
+	
+	public Matrix4f initRotation(Vector3f forward, Vector3f up)
 	{
 		Vector3f f = forward.normalise();
 		

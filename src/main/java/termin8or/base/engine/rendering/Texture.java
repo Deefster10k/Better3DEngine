@@ -1,4 +1,4 @@
-package termin8or.base.engine;
+package termin8or.base.engine.rendering;
 
 import static org.lwjgl.opengl.GL11.*;
 

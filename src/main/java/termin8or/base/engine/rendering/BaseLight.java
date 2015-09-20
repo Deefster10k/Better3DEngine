@@ -1,4 +1,6 @@
-package termin8or.base.engine;
+package termin8or.base.engine.rendering;
+
+import termin8or.base.engine.core.Vector3f;
 
 public class BaseLight
 {

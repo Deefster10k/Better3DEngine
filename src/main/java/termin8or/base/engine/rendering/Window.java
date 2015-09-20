@@ -1,4 +1,4 @@
-package termin8or.base.engine;
+package termin8or.base.engine.rendering;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
@@ -7,6 +7,8 @@ import org.lwjgl.opengl.ContextAttribs;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.PixelFormat;
+
+import termin8or.base.engine.core.Vector2f;
 
 public class Window
 {
@@ -58,5 +60,10 @@ public class Window
 	public static String getTitle()
 	{
 		return Display.getTitle();
+	}
+	
+	public Vector2f getCenter()
+	{
+		return new Vector2f(getWidth()/2, getHeight()/2);
 	}
 }

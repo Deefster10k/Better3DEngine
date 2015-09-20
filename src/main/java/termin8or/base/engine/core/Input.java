@@ -1,4 +1,4 @@
-package termin8or.base.engine;
+package termin8or.base.engine.core;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
