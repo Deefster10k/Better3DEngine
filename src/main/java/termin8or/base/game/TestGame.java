@@ -1,5 +1,6 @@
 package termin8or.base.game;
 
+import termin8or.base.engine.components.MeshRenderer;
 import termin8or.base.engine.core.Game;
 import termin8or.base.engine.core.GameObject;
 import termin8or.base.engine.core.Vector2f;
