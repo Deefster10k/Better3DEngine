@@ -11,6 +11,7 @@ public class RenderingEngine
 	private Vector3f ambientLight;
 	private DirectionalLight directionalLight;
 	private DirectionalLight directionalLight2;
+	private PointLight pointLight;
 	
 	public RenderingEngine()
 	{
@@ -30,11 +31,17 @@ public class RenderingEngine
 		ambientLight = new Vector3f(0.2f, 0.2f, 0.2f);
 		directionalLight = new DirectionalLight(new BaseLight(new Vector3f(0,0,1), 0.4f), new Vector3f(1,1,1));
 		directionalLight2 = new DirectionalLight(new BaseLight(new Vector3f(1,0,0), 0.4f), new Vector3f(-1,1,-1));
+		pointLight = new PointLight(new BaseLight(new Vector3f(0,1,0), 0.4f), new Attenuation(0,0,1), new Vector3f(5,0,5), 100);
 	}
 	
 	public Vector3f getAmbientLight()
 	{
 		return ambientLight;
+	}
+	
+	public PointLight getPointLight()
+	{
+		return pointLight;
 	}
 	
 	public DirectionalLight getDirectionalLight()
@@ -53,8 +60,10 @@ public class RenderingEngine
 		
 		Shader forwardAmbient = ForwardAmbient.getInstance();
 		Shader forwardDirectional = ForwardDirectional.getInstance();
+		Shader forwardPoint = ForwardPoint.getInstance();
 		forwardAmbient.setRenderingEngine(this);
 		forwardDirectional.setRenderingEngine(this);
+		forwardPoint.setRenderingEngine(this);
 		
 		object.render(forwardAmbient);
 		
@@ -74,6 +83,8 @@ public class RenderingEngine
 		temp = directionalLight;
 		directionalLight = directionalLight2;
 		directionalLight2 = temp;
+		
+		object.render(forwardPoint);
 		
 		glDepthFunc(GL_LESS);
 		glDepthMask(true);
