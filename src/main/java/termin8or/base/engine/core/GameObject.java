@@ -2,6 +2,7 @@ package termin8or.base.engine.core;
 
 import java.util.ArrayList;
 
+import termin8or.base.engine.components.GameComponent;
 import termin8or.base.engine.rendering.Shader;
 
 public class GameObject
